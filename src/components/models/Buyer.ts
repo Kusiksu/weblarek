@@ -6,7 +6,7 @@ import type {
 } from '../../types';
 
 export class Buyer implements IBuyerModel {
-  private payment: TPayment = '';
+  private payment: TPayment | '' = '';
   private email = '';
   private phone = '';
   private address = '';

@@ -197,10 +197,10 @@ interface IProduct {
 ### Данные покупателя
 
 ```ts
-type TPayment = 'card' | 'cash' | '';
+type TPayment = 'card' | 'cash';
 
 interface IBuyer {
-  payment: TPayment;
+  payment: TPayment | '';
   email: string;
   phone: string;
   address: string;
@@ -221,7 +221,7 @@ interface IBuyer {
 | `BuyerErrors` | `Partial<Record<keyof IBuyer, string>>` — тексты ошибок по полям покупателя; отсутствие ключа означает отсутствие ошибки |
 | `IApiList<T>` | `{ total: number; items: T[] }` — общее число записей и полученный массив |
 | `ProductListResponse` | `IApiList<IProduct>` — ответ списка товаров |
-| `OrderRequest` | `Omit<IBuyer, 'payment'> & { payment: Exclude<TPayment, ''>; total: number; items: IProduct['id'][] }` — данные покупателя, выбранная оплата, сумма и id товаров. Пустая оплата исключена |
+| `OrderRequest` | `Omit<IBuyer, 'payment'> & { payment: TPayment; total: number; items: IProduct['id'][] }` — данные покупателя, выбранная оплата, сумма и id товаров. Пустая оплата исключена |
 | `OrderResponse` | `{ id: string; total: number }` — идентификатор заказа и сумма покупки |
 | `ApiPostMethods` | `'POST' \| 'PUT' \| 'DELETE'` — методы HTTP-записи |
 | `EventName` | `string \| RegExp` — имя или шаблон события; строка `'*'` означает все события |
@@ -304,7 +304,7 @@ interface IBuyer {
 
 | Поле | Тип | Назначение |
 | --- | --- | --- |
-| `private payment` | `TPayment` | Способ оплаты |
+| `private payment` | `TPayment | ''` | Способ оплаты |
 | `private address` | `string` | Адрес доставки |
 | `private email` | `string` | Электронная почта |
 | `private phone` | `string` | Телефон |
